@@ -1,0 +1,23 @@
+﻿@using Plataforma.Dtos.Helpers
+@{
+    Layout = null;
+    var breadCrumbs = (BreadCrumbsDto)ViewData["BreadCrumbs"];
+}
+
+@if (breadCrumbs != null) {
+    <nav aria-label="breadcrumb mb-1">
+        <ol class="breadcrumb p-0 m-0">
+            @if (breadCrumbs.BreadCrumbs.FirstOrDefault()?.Name != "Dashboard") {
+                <li class="breadcrumb-item"><a href="/"><small>Dashboard</small></a></li>
+            }
+            @foreach (var breadCrumb in breadCrumbs.BreadCrumbs.Where(b => !string.IsNullOrEmpty(b.Name))) {
+                if (string.IsNullOrEmpty(breadCrumb.Url)) {
+                    <li class="breadcrumb-item active" aria-current="page"><small>@breadCrumb.Name</small></li>
+                }
+                else {
+                    <li class="breadcrumb-item"><a href="@breadCrumb.Url"><small>@breadCrumb.Name</small></a></li>
+                }
+            }
+        </ol>
+    </nav>
+}

@@ -1,0 +1,17 @@
+﻿@using Plataforma.Extensions
+@using Plataforma.Services.Contracts.FlashMessage
+@inject IFlashMessage _flashMessage
+
+@{
+    Layout = null;
+}
+@{
+    var messages = _flashMessage.Retrieve();
+    if (messages.Any()) {
+        <script type="text/javascript">
+        @foreach (var message in messages) {
+            @Html.Raw("showMessage(\""+message.Message+"\", \""+message.Type.NameForHumans()+"\");")
+        }
+        </script>
+    }
+}

@@ -1,0 +1,285 @@
+﻿// Variable overrides
+$primary: #00a3df;
+
+$enable-caret: false;
+$enable-rounded: true;
+$input-btn-focus-box-shadow:none;
+$red: #dc0000;
+$green: #28a745;
+$yellow: #ffc107;
+$cyan: #0dcaf0;
+
+$danger: $red;
+$warning: $yellow;
+$info: $cyan;
+
+
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+
+
+$input-border-color: $gray-400;
+
+//Change table-stripped color from odd to even
+$table-striped-order: even;
+
+
+// The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
+// See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
+$min-contrast-ratio: 2.8;
+
+
+$table-bg-scale: 0;
+$accordion-button-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$primary}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+
+//
+//
+//
+//
+// Bootstrap and its default variables
+@import "../../vendors/bootstrap/scss/bootstrap.scss";
+// Bootstrap and its default variables
+//
+//
+//
+//
+
+.table-striped > tbody > tr.text-danger > * {
+    color: $danger !important;
+}
+
+.form-control-height {
+    padding: $input-padding-y 0;
+    line-height: $input-line-height;
+}
+
+.table-no-bg {
+    --bs-table-accent-bg: none !important;
+    background-color: none !important;
+}
+
+
+// Input small height
+$input-height-xs: add($input-height-sm, -0.5em);
+$input-padding-x-xs: add($input-padding-x-sm, -0.5em);
+$input-padding-y-xs: add($input-padding-y-sm, -0.5em);
+
+$input-height-xxs: add($input-height-xs, -0.5em);
+$input-padding-x-xxs: add($input-padding-x-xs, -0.5em);
+$input-padding-y-xxs: add($input-padding-y-xs, -0.5em);
+
+
+textarea.textarea-lg {
+    min-height: calc(10.5em + 0.75rem + 2px);
+}
+
+textarea.textarea-xl {
+    min-height: calc(20.5em + 0.75rem + 2px);
+}
+
+// Create btn-xs
+$font-size-xs: $font-size-base * .75;
+$border-radius-xs: .2rem;
+
+$input-btn-padding-y-xs: .25rem;
+$input-btn-padding-x-xs: .5rem;
+$input-btn-font-size-xs: $font-size-xs;
+
+$btn-padding-y-xs: $input-btn-padding-y-xs;
+$btn-padding-x-xs: $input-btn-padding-x-xs;
+$btn-font-size-xs: $input-btn-font-size-xs;
+$btn-border-radius-xs: $border-radius-xs;
+
+.btn-xs {
+    @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $btn-font-size-xs, $btn-border-radius-xs);
+}
+
+.btn-group-xs > .btn {
+    @extend .btn-xs;
+}
+
+btn-xs + .dropdown-toggle-split {
+    padding-right: $btn-padding-x-xs * .75;
+    padding-left: $btn-padding-x-xs * .75;
+}
+// Create btn-xs
+
+
+
+// Custom checkbox
+.form-check {
+    padding-left: 0;
+
+    &.readonly {
+        > label:before, label::before {
+            background-color: $input-disabled-bg;
+        }
+    }
+
+    > input {
+        display: none !important;
+    }
+
+    > label {
+        position: relative;
+        height: $input-height-xs;
+        padding-left: add($input-height-xs, 10px);
+        cursor: pointer;
+
+        &:before, &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: $input-height-xs;
+            height: $input-height-xs;
+            background: $input-bg;
+            border: $input-border-width solid $input-border-color;
+            border-radius: $input-border-radius;
+            background-position: center center;
+            background-size: contain;
+            cursor: pointer;
+            display: block;
+        }
+
+        &:after, &::after {
+            font-family: 'Font Awesome 6 Free';
+            //check in fontawesome
+            content: "\f00c";
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
+            font-weight: 900;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
+            font-size: $input-font-size;
+            color: $input-color;
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: add(0.3em, $input-border-width);
+            transform: translateY(-50%);
+        }
+
+        &.regular {
+            height: $input-height;
+            padding-left: add($input-height, 10px);
+
+            &:before, &::before {
+                width: $input-height;
+                height: $input-height;
+            }
+
+            &:after, &::after {
+                font-size: 1.5rem;
+                top: 50%;
+            }
+        }
+
+
+        &.form-check-label-small {
+            height: $input-height-xxs;
+            padding-left: add($input-height-xxs, 10px);
+
+            &:before, &::before {
+                width: $input-height-xxs;
+                height: $input-height-xxs;
+                top: 3px;
+            }
+
+            &:after, &::after {
+                font-size: 0.7rem;
+                top: 67%;
+            }
+        }
+    }
+
+    > input:checked + label:after,
+    > input:checked + label::after {
+        display: inline-block;
+    }
+
+    &.center {
+        > label {
+            display: block;
+            padding: 0;
+            margin: 0 auto;
+            width: calc(calc(1.5em + .5rem + 2px) + -.5em);
+        }
+    }
+
+    &.withSpan {
+        > label {
+            > span {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0.3;
+                font-size: 15px;
+            }
+        }
+
+        > input:checked + label > span {
+            opacity: 1;
+            color: $primary;
+            font-weight: bold;
+        }
+
+        > input:checked + label:after,
+        > input:checked + label::after {
+            display: none;
+        }
+    }
+
+
+    &.withColor {
+        > label {
+            > span {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 15px;
+            }
+        }
+
+        > input + label > span {
+            font-weight: bold;
+
+            &.checked {
+                color: $success;
+                display: none;
+            }
+
+            &.not-checked {
+                color: $danger;
+                display: block;
+            }
+        }
+
+        > input:checked + label {
+            > span.checked {
+                display: block;
+            }
+
+            > span.not-checked {
+                display: none;
+            }
+        }
+
+        > input:checked + label:after,
+        > input:checked + label::after {
+            display: none;
+        }
+    }
+}
+// Custom checkbox

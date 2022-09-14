@@ -1,0 +1,144 @@
+﻿@import "_utils.less";
+
+.alert-messages {
+    position: fixed;
+    right: 15px;
+    left: 15px;
+    bottom: auto;
+    top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 9999;
+    .disableSelect();
+    flex-direction: column !important;
+    pointer-events: none !important;
+
+    > div {
+        position: relative;
+        width: auto;
+        max-width: 100%;
+
+        @media(max-width:400px) {
+            max-width: 100%;
+        }
+
+        cursor: pointer;
+        -webkit-animation-name: showMessage;
+        -webkit-animation-duration: 0.3s;
+        -webkit-animation-timing-function: linear;
+        -webkit-animation-fill-mode: forwards;
+        animation-name: showMessage;
+        animation-duration: 0.3s;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+        -moz-animation-name: showMessage;
+        -moz-animation-duration: 0.3s;
+        -moz-animation-timing-function: linear;
+        -moz-animation-fill-mode: forwards;
+
+        &.hidding {
+            -webkit-animation-name: hideMessage;
+            -webkit-animation-duration: 0.3s;
+            -webkit-animation-timing-function: linear;
+            animation-name: hideMessage;
+            animation-duration: 0.3s;
+            animation-timing-function: linear;
+            -moz-animation-name: hideMessage;
+            -moz-animation-duration: 0.3s;
+            -moz-animation-timing-function: linear;
+        }
+
+        i{
+            margin-right:6px;
+        }
+
+        > div {
+            border-width: 1px;
+            border-style: solid;
+            border-left-width: 5px;
+            margin-right: auto !important;
+            margin-left: auto !important;
+            pointer-events: all !important;
+        }
+    }
+}
+
+
+
+@keyframes showMessage {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes showMessage {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes showMessage {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes hideMessage {
+    0% {
+        opacity: 1;
+        display: flex;
+    }
+
+    99% {
+        display: flex;
+    }
+
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@-webkit-keyframes hideMessage {
+    0% {
+        opacity: 1;
+        display: flex;
+    }
+
+    99% {
+        display: flex;
+    }
+
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@-moz-keyframes hideMessage {
+    0% {
+        opacity: 1;
+        display: flex;
+    }
+
+    99% {
+        display: flex;
+    }
+
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}

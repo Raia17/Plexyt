@@ -1,0 +1,9 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Plataforma.Extensions
+@using Plataforma.Models.Identity
+@inject UserManager<User> _userManager
+
+@{
+    Layout = "Structure/_Layout";
+    ViewBag.User = await _userManager.FindByIdAsync(User.GetUserId().ToString());
+}

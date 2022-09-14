@@ -1,0 +1,17 @@
+﻿@model Plataforma.Models.Media.File
+@{
+    Layout = null;
+    var canAdd = (bool?)ViewData["CanAdd"] ?? false;
+}
+
+<div data-id="@Model.Id" class="col-12 mb-3 fileGroupFileContainer">
+    <div>
+        @{
+            if (canAdd) {
+                <button data-key="@Model.Id" data-model="@typeof(Plataforma.Models.Media.File).FullName" class="mr-2 btn btn-primary btn-xs border-0 sort-handle" type="button"><i class="fa-solid fa-sort"></i></button>
+                <button type="button" class="fileGroupDeleteButton btn btn-danger btn-xs mr-2"><i class="fa-solid fa-trash"></i></button>
+            }
+        }
+        <span class=""><a target="_blank" asp-action="FileRead" asp-controller="Files" asp-route-id="@Model.Id" asp-route-name="@Model.Filename">@(Model.Filename)</a></span>
+    </div>
+</div>

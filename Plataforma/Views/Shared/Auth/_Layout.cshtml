@@ -1,0 +1,27 @@
+﻿@using Plataforma.Services.Components
+@inject ConfigurationsService _configurations
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-pt">
+<head>
+    <partial name="Structure/_Head" />
+    <link rel="stylesheet" type="text/css" href="~/css/main.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/login.min.css" />
+</head>
+<body>
+    <flash dismissable="true"></flash>
+
+    <div class="content">
+        <div class="card login-box mx-auto">
+            <div class="card-body">
+                <img src="~/images/logo.png" alt="@_configurations.Title" class="img-fluid logo" />
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <partial name="Structure/_Scripts" />
+    <partial name="Structure/_FlashMessages" />
+    <partial name="Structure/_Footer" />
+</body>
+</html>

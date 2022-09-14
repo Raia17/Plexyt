@@ -1,0 +1,69 @@
+@using Plataforma.Extensions
+@using Plataforma.Models.Identity
+@using Plataforma.Controllers.Admin
+@using Plataforma.Helpers
+@model IQueryable<User>
+
+@{
+    var me =  (User) ViewBag.User;
+}
+
+<div>
+    <a asp-action="Create" asp-controller="Users" class="btn btn-primary mb-3"><i class="fa-regular fa-file"></i> Novo registo</a>
+</div>
+
+
+@(Html
+    .Grid(Model)
+    .Build(columns => {
+        columns.AddActivating();
+        columns.AddId();
+        columns.AddActions(b => b.AddEdit().AddDelete(when: user => user.Id != me.Id && (!user.Master || me.Master)));
+        columns.Add(model => model.NormalizedEmail.ToLower()).Titled("E-mail");
+        columns.Add(model => model.Name).Titled("Nome");
+        columns.AddActions(b => 
+            b.AddCustomHtml(model => $"<button type=\"button\" data-user=\"{model.Id}\" title=\"Alterar password\" class=\"btn btn-primary btn-xs d-inline-block mx-1 set-password\"><i class=\"fa-solid fa-key\"></i><span class=\"d-none d-md-inline-block ms-md-2\">Password</span></a>")
+        );
+        columns.Add(model => "").RenderedAs(m => null).AppendCss("");
+    })
+    .Empty("Sem dados")
+    .Sortable()
+    .Pageable()
+    )
+
+@{
+    var passwordValidators = (List<string>)ViewData["PasswordValidation"] ?? new List<string>();
+}
+<div class="d-none" id="passwordValidators">
+    @foreach (var error in passwordValidators) {
+        <div class="small">@error</div>
+    }
+</div>
+    
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".set-password").on("click",
+                function(e) {
+                    e.preventDefault();
+                    var userId = $(this).data("user");
+                    dynamicModal("<label for=\"password-modal\">Introduza a nova password</label><input maxlength=\"15\" data-id=\"" + userId + "\" type=\"password\" class=\"form-control mb-1\" id=\"password-modal\" /><div class=\"mb-3\">" + $("#passwordValidators").html() + "</div>",
+                        function() {
+                            var password = $("#password-modal").val();
+                            var id = $("#password-modal").data("id");
+                            $.post('@Url.Action("ChangePassword", "XhrUsers")', { id, password })
+                                .done(function(data) {
+                                    showMessage(data, 1);
+                                })
+                                .fail(function (jqXhr, textStatus, errorThrown) {
+                                    showMessage(jqXhr.responseText, -1);
+                                });
+                        },
+                        function() {},
+                        "Gravar",
+                        "Cancelar");
+                    return false;
+                });
+        })
+    </script>
+}

@@ -1,0 +1,58 @@
+﻿@using Plataforma.Models.Identity
+@using Plataforma.Extensions
+@using Plataforma.Controllers.Account
+
+
+<div id="menuAccordion">
+    @{
+        var user = (User) ViewBag.User;
+        var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+        var claimGroups = ClaimStore.ClaimGroups(true).WithIndexList();
+        var selectedClaimGroupName = claimGroups.ToList().FirstOrDefault(c => c.item.Claims.Any(s => !string.IsNullOrEmpty(s.ControllerName) && s.ControllerName.Equals(controller))).item?.Name ?? "";
+        var selectedClaimController = ClaimStore.ClaimList(true).FirstOrDefault(c=>!string.IsNullOrEmpty(c.ControllerName) && c.ControllerName.Equals(controller))?.ControllerName ??"";
+        foreach(var (applicationClaimGroup, applicationClaimGroupIndex) in claimGroups) {
+            var selected = selectedClaimGroupName == applicationClaimGroup.Name;
+            var index = applicationClaimGroupIndex.ToString();
+            if (User.Claims.Any(cl => applicationClaimGroup.Claims.Any(c => c.Menu && (c.Type == cl.Type || c.CustomType == cl.Type || (string.IsNullOrEmpty(c.Type) && string.IsNullOrEmpty(c.CustomType)))))) {
+                if (applicationClaimGroup.OnlyMenu && applicationClaimGroup.Claims.Count(c=>c.Menu) == 1) {
+                    var claim = applicationClaimGroup.Claims[0];
+                    <div class="menu-item">
+                        <a 
+                            class="btn btn-link d-block text-reset text-decoration-none rounded-0 w-100 text-start shadow-none @(selected ? "" : " collapsed")"
+                            asp-controller="@claim.ControllerName" asp-action="Index">
+                            @applicationClaimGroup.Name
+                        </a>
+                    </div>
+                }
+                else {
+                    <div class="menu-item">
+                        <button 
+                            id="@("menuHeader" + index)"
+                            class="btn btn-link d-block text-reset text-decoration-none rounded-0 w-100 text-start shadow-none @(selected ? "" : " collapsed")"
+                            type="button" 
+                            data-bs-toggle="collapse" 
+                            aria-expanded="@(selected ? "true" : "false")" 
+                            data-bs-target="@("#menu" + index)" 
+                            aria-controls="@("menu" + index)" id="@("sidebarHeading" + index)">
+                            @applicationClaimGroup.Name
+                        </button>
+                        <div
+                            id="@("menu" + index)"
+                            class="collapse @(selected ? " show" : "")"
+                            aria-labelledby="@("menuHeader" + index)"
+                            data-bs-parent="#menuAccordion">
+                            <div class="sidebar-border"></div>
+                            @foreach (var claim in applicationClaimGroup.Claims.Where(c => c.Menu && (User.Claims.Any(uc => uc.Type == c.Type || c.CustomType == uc.Type || (string.IsNullOrEmpty(c.Type) && string.IsNullOrEmpty(c.CustomType)))))) {
+                                <a
+                                    asp-controller="@claim.ControllerName" asp-action="Index" data-cl="@claim.Type"
+                                    class="rounded-0 btn btn-link d-block ps-4 text-start text-reset text-decoration-none m-0 shadow-none @(claim.ControllerName == selectedClaimController ? "selected" : "")">
+                                    @(string.IsNullOrEmpty(claim.MenuName) ? claim.Name : claim.MenuName)
+                                </a>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+        }
+    }
+</div>

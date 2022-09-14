@@ -1,0 +1,284 @@
+﻿@import "_variables.less";
+
+.loading-results{
+    display:none!important;
+}
+
+.select2-hidden-accessible {
+    border: 0 !important;
+    clip: rect(0 0 0 0) !important;
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    white-space: nowrap !important
+}
+
+.select2-container {
+    position: relative;
+    flex: 1 1 auto;
+    width: 100% !important;
+    min-width: 0;
+    border-top-left-radius: .25rem!important; 
+    border-bottom-left-radius: .25rem!important;
+}
+
+.input-group {
+    .select2-container {
+        width: 1% !important;
+    }
+}
+select[multiple] + .select2-container {
+    height: auto;
+}
+.select2-container .selection{
+    width:100%;
+}
+.select2-container .selection .select2-selection {
+    min-width: 100%;
+    display: block;
+    height: 100%;
+}
+
+span.select2-selection__placeholder:empty:before,
+span.select2-selection__placeholder:empty::before{
+    content:'\00a0'
+}
+
+//# Single
+.select2-container .select2-selection--single {
+    cursor: pointer;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 15px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 100%;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 20px;
+    b {
+        border-color: transparent transparent #888 transparent;
+        border-width: 0 4px 5px 4px;
+    }
+    b {
+        border-color: #888 transparent transparent transparent;
+        border-style: solid;
+        border-width: 5px 4px 0 4px;
+        height: 0;
+        left: 50%;
+        margin-left: -4px;
+        margin-top: -2px;
+        position: absolute;
+        top: 50%;
+        width: 0;
+    }
+}
+//# Single
+
+//# Clear
+.select2-container .select2-selection--single .select2-selection__clear {
+    position: relative;
+    cursor: pointer;
+    float: right;
+}
+
+.select2-container--disabled .select2-selection__clear {
+    display: none
+}
+//# Clear
+
+//# Search
+.select2-container .select2-search--inline {
+    float: left;
+}
+
+.select2-search--dropdown.select2-search--hide {
+    display: none;
+}
+
+.select2-search--dropdown {
+    padding: 0.25rem;
+    display: block;
+    background:#FFFFFF;
+}
+
+.select2-search__field {
+    box-shadow: none !important;
+}
+
+.select2-search__field::-webkit-search-cancel-button {
+    -webkit-appearance: none
+}
+
+.select2-container .select2-search--inline {
+    float: left
+}
+
+.select2-container--default .select2-search--inline .select2-search__field {
+    background: transparent;
+    border: none;
+    outline: 0;
+    box-shadow: none;
+    -webkit-appearance: textfield
+}
+//# Search
+
+//# Results
+.select2-dropdown {
+    background-color: white;
+    border: 1px solid @input-border-color;
+    border-radius: @input-border-radius;
+    display: block;
+    position: absolute;
+    left: -100000px;
+    width: 100%;
+    z-index: 1051
+}
+
+.select2-results {
+    display: block
+}
+
+.select2-results__options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height:300px;
+    overflow:auto;
+}
+
+.select2-container--open.select2-container--above {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0
+}
+
+.select2-container--open.select2-container--below {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0
+}
+
+.select2-results__option {
+    padding: 6px;
+    user-select: none;
+    -webkit-user-select: none
+}
+
+.select2-results__option[aria-selected] {
+    cursor: pointer
+}
+
+.select2-results__option[aria-selected=true] {
+    background-color: @primary;
+    color: white;
+}
+
+.select2-container--open .select2-dropdown {
+    left: 0
+}
+
+.select2-container--open .select2-dropdown--above {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0
+}
+
+.select2-container--open .select2-dropdown--below {
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: @primary;
+    color: white;
+}
+//#Results
+
+//#Groups
+.select2-container--default .select2-results__group {
+    cursor: default;
+    display: block;
+    padding: 6px
+}
+//#Groups
+
+//# Multiple
+.select2-container .select2-selection--multiple {
+}
+
+.select2-selection--multiple {
+    display: block;
+}
+
+.select2-container .select2-selection--multiple .select2-selection__rendered {
+    display: block;
+    overflow: hidden;
+    padding-left: 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0 5px;
+    width: 100%
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+    list-style: none
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__clear {
+    position: relative;
+    cursor: pointer;
+    float: right;
+}
+
+.select2-container .select2-search--inline .select2-search__field {
+    box-sizing: border-box;
+    border: none;
+    padding: 0;
+    height: auto;
+    margin-top: 0;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    list-style: none;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    margin-right: 5px;
+    padding: 0 5px;
+    cursor: default;
+    float: left;
+    color: #FFFFFF;
+    background-color: @primary;
+    border-radius: @input-border-radius;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: inherit;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    margin-right: 2px
+}
+
+.select2-container--default.select2-container--disabled .select2-selection--multiple {
+    background-color: #eee;
+    cursor: default
+}
+
+.select2-container--default.select2-container--disabled .select2-selection__choice__remove {
+    display: none
+}
+
+//# Multiple

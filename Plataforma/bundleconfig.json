@@ -1,0 +1,38 @@
+[
+  {
+    "outputFileName": "wwwroot/css/bundle.min.css",
+    "inputFiles": [
+      "wwwroot/css/custom-bootstrap.min.css",
+      "wwwroot/vendors/fontawesome/css/all.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "preserveImportantComments": false,
+      "commentMode": "none"
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/bundle.min.js",
+    "inputFiles": [
+      "wwwroot/vendors/jquery/jquery.min.js",
+      "wwwroot/vendors/bootstrap/js/bootstrap.bundle.min.js",
+      "wwwroot/vendors/html5sortable/html5sortable.min.js",
+      "wwwroot/vendors/select2/js/select2.min.js",
+      "wwwroot/vendors/select2/js/i18n/pt.min.js",
+      "wwwroot/vendors/mvc-grid/js/mvc-grid.min.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "preserveImportantComments": false,
+      "renameLocals": false
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/main.min.js",
+    "inputFiles": [
+      "wwwroot/src/js/*.js"
+    ]
+  }
+]
+
+

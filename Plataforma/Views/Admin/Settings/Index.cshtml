@@ -1,0 +1,25 @@
+@model Plataforma.Models.Structure.Settings
+
+
+<form asp-action="Index" asp-controller="Settings">
+    <div class="card">
+
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="GlobalSettings.TestProperty">Test</label>
+                        <input asp-for="GlobalSettings.TestProperty" class="form-control" />
+                        <span asp-validation-for="GlobalSettings.TestProperty" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-submit">
+                    <button class="btn btn-primary d-block d-md-inline-block" name="GoBack" type="submit">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+

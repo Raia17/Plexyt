@@ -1,0 +1,56 @@
+@model IGridPager
+@{
+    var totalPages = Model.TotalPages;
+    var currentPage = Model.CurrentPage;
+    var firstDisplayPage = Model.FirstDisplayPage;
+}
+@if (totalPages > 1) {
+    <ul class="pagination mt-3 justify-content-center @($"mvc-grid-pager {Model.CssClasses}".Trim())" data-show-page-sizes="@Model.ShowPageSizes" data-total-rows="@Model.TotalRows">
+        @{
+            var disabledClass = currentPage > 1 ? "" : " disabled";
+            <li class="page-item @disabledClass">
+                <button type="button" class="page-link @disabledClass" data-page="1">&#171;</button>
+            </li>
+            <li class="page-item @disabledClass">
+                <button type="button" class="page-link @disabledClass" data-page="@(currentPage - 1)">&#8249;</button>
+            </li>
+
+            for (var page = firstDisplayPage; page <= totalPages && page < firstDisplayPage + Model.PagesToDisplay; page++) {
+                var activeClass = page == currentPage ? " active" : "";
+                <li class="page-item @activeClass">
+                    <button type="button" class="page-link @activeClass" data-page="@(page)">@(page)</button>
+                </li>
+            }
+
+            disabledClass = currentPage < totalPages ? "" : " disabled";
+            <li class="page-item @disabledClass">
+                <button type="button" class="page-link @disabledClass" data-page="@(currentPage + 1)" tabindex="-1">&#8250;</button>
+            </li>
+            <li class="page-item @disabledClass">
+                <button type="button" class="page-link @disabledClass" data-page="@totalPages" tabindex="-1">&#187;</button>
+            </li>
+
+            if (Model.ShowPageSizes) {
+                <div class="mvc-grid-page-sizes">
+                    @if (Model.PageSizes.Count > 0) {
+                        <select class="mvc-grid-pager-rows">
+                            @foreach (var (key, value) in Model.PageSizes) {
+                                if (Model.RowsPerPage == key) {
+                                    <option value="@key" selected>@value</option>
+                                } else {
+                                    <option value="@key">@value</option>
+                                }
+                            }
+                        </select>
+                    } else {
+                        <input class="mvc-grid-pager-rows" value="@Model.RowsPerPage" />
+                    }
+                </div>
+            } else {
+                <input class="mvc-grid-pager-rows" type="hidden" value="@Model.RowsPerPage" />
+            }
+        } 
+    </ul>
+}else {
+    <input class="mvc-grid-pager-rows" type="hidden" value="@Model.RowsPerPage" />
+}

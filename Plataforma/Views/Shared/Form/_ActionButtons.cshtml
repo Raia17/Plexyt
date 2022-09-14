@@ -1,0 +1,19 @@
+﻿@using Plataforma.Services.Components
+@inject RedirectService _redirectService
+
+@{
+    Layout = null;
+    
+    var saveButton = (bool?)ViewData["SaveButton"] ?? true;
+    var editUrl = (string)ViewData["EditUrl"] ?? string.Empty;
+}
+
+<div class="form-submit">
+    @if (saveButton) {
+        <button class="btn btn-primary d-block d-md-inline-block" name="GoBack" type="submit">Guardar</button>
+    }
+    @if (!string.IsNullOrEmpty(editUrl)) {
+        <a class="btn btn-primary d-block d-md-inline-block" href="@editUrl">Editar</a>
+    }
+    <a class="btn btn-outline-primary d-block d-md-inline-block" href="@_redirectService.GetGoBackUrl()">Cancelar</a>
+</div>

@@ -1,0 +1,77 @@
+﻿@using Plataforma.Helpers
+@using Plataforma.Services.Components
+@inject ConfigurationsService _configurationsService
+@inject RedirectService _redirectService
+
+@{
+    var user = (User)ViewBag.User;
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-pt">
+<head lang="pt-pt">
+    <partial name="Structure/_Head" />
+    @await RenderSectionAsync("Style", false)
+    @if ((user?.MessagesPosition ?? "TopCenter") != "TopCenter") {
+        <link rel="stylesheet" href="~/css/messages-@(user.MessagesPosition.ToLower()).min.css" />
+    }
+</head>
+<body>
+@if (user != null) {
+    
+    <main>
+        <aside>
+            <div class="aside-menu">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="sidebar-toggle-container">
+                                <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="logo-container">
+                                <div><a href="/"><img src="~/images/logo.png" class="logo" alt="@_configurationsService.Title"/></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <partial name="Structure/_Sidebar"/>
+            </div>
+        </aside>
+        <article>
+            <header>
+                <div class="header-buttons">
+                    <div class="row">
+                        <div class="col-auto d-none d-md-block">
+                            <span class="username">@Humanizer.GetGreeting(), @user.Name</span>
+                        </div>
+                        <div class="col-auto ps-0">
+                            <a class="btn-logout p-0 text-decoration-none" title="Sair" asp-controller="Auth" asp-action="Logout"><i class="fas fa-power-off"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="container-fluid">
+                <div class="titles mb-3">
+                    <partial name="Structure/_BreadCrumbs"/>
+                </div>
+                @RenderBody()
+            </div>
+        </article>
+    </main>
+
+
+    <partial name="Structure/_Footer"/>
+    <partial name="Structure/_Scripts"/>
+    <partial name="Structure/_FlashMessages"/>
+    <partial name="Structure/_Modals"/>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+} else {
+    @RenderBody()
+}
+</body>
+</html>

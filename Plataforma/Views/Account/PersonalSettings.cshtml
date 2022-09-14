@@ -1,0 +1,27 @@
+﻿@model Plataforma.Dtos.Account.PersonalSettingsDto
+
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Index" asp-controller="PersonalSettings">
+            <div class="row">
+                <div class="col-12 col-md-4 col-xxl-3">
+                    <div class="form-group">
+                        <label asp-for="MessagesPosition">Posição das Mensagens</label>
+                        <select class="d-none select2-element" asp-for="MessagesPosition" data-search="false" data-clear="false">
+                            <option value="TopCenter">Topo | Centro</option>
+                            <option value="TopRight">Topo | Direita</option>
+                            <option value="TopLeft">Topo | Esquerda</option>
+                            <option value="BottomRight">Fundo | Direita</option>
+                            <option value="BottomLeft">Fundo | Esquerda</option>
+                        </select>
+                        <span asp-validation-for="MessagesPosition"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-submit">
+                <button class="btn btn-primary d-block d-md-inline-block" type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>

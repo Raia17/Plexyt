@@ -1,0 +1,103 @@
+@using User = Plataforma.Models.Identity.User
+@model Plataforma.Dtos.Users.UserDto
+
+@{
+    var user = (User)ViewData["Model"];
+}
+
+<form asp-action="@ViewContext.RouteData.Values["action"]?.ToString()" asp-controller="Users">
+
+    <div class="validation-error">@ViewData["Error"]</div>
+
+    <div class="card">
+        <div class="card-header">Dados de utilizador</div>
+        <div class="card-body pb-3">
+            <div class="row">
+                @if (user == null) {
+                    <div class="col-12 col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Email">E-mail</label>
+                            <input asp-for="Email" class="form-control"/>
+                            <span asp-validation-for="Email"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Password">Password</label>
+                            <input asp-for="Password" class="form-control"/>
+                            <span asp-validation-for="Password"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Name">Nome</label>
+                            <input asp-for="Name" class="form-control"/>
+                            <span asp-validation-for="Name"></span>
+                        </div>
+                    </div>
+                }
+                else {
+                    <div class="col-12 col-md-4">
+                        <div class="form-group">
+                            <readonly-div asp-for="@user.Email" name="E-mail"></readonly-div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Name">Nome</label>
+                            <input asp-for="Name" class="form-control"/>
+                            <span asp-validation-for="Name"></span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Permissões</div>
+        <div class="card-body pb-3">
+            <div class="row">
+                <div class="col-12">
+                    <div class="accordion-flush">
+                        @{
+                            var claims = Model.UserClaims.Where(uc => uc.Type != "").WithIndexList();
+                            var groups = claims.Select(c => c.item.Group).Distinct();
+                            foreach (var group in groups.WithIndex()) {
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button p-2 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#flush-@group.index" aria-expanded="true" aria-controls="flush-@group.index">
+                                            @group.item
+                                        </button>
+                                    </h2>
+                                    <div id="flush-@group.index" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            @{
+                                                var groupClaims = claims.Where(c => c.item.Group == group.item).OrderBy(c => c.index).ToList();
+                                                if (groupClaims.Any()) {
+                                                    for (var i = groupClaims.First().index; i <= groupClaims.Last().index; i++) {
+                                                        <div class="form-group form-check form-check-inline">
+                                                            <input type="hidden" asp-for="@Model.UserClaims[i].Group"/>
+                                                            <input type="hidden" asp-for="@Model.UserClaims[i].Name"/>
+                                                            <input type="hidden" asp-for="@Model.UserClaims[i].Type"/>
+                                                            <input asp-for="@Model.UserClaims[i].Enabled"/>
+                                                            <label asp-for="@Model.UserClaims[i].Enabled">@Model.UserClaims[i].Name</label>
+                                                        </div>
+                                                    }
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <partial name="Form/_ActionButtons" />
+</form>

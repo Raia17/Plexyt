@@ -1,0 +1,154 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+<PropertyGroup>
+	<LangVersion>10.0</LangVersion>
+</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ResolveStaticWebAssetsInputsDependsOn>RemoveIdentityAssets</ResolveStaticWebAssetsInputsDependsOn>
+  </PropertyGroup>
+  <Target Name="RemoveIdentityAssets">
+    <ItemGroup>
+      <StaticWebAsset Remove="@(StaticWebAsset)" Condition="%(SourceId) == 'Microsoft.AspNetCore.Identity.UI'" />
+    </ItemGroup>
+  </Target>
+  <ItemGroup Condition="'$(Configuration)' != 'Release'">
+    <Content Remove="wwwroot\**" />
+    <Content Include="wwwroot\**" Watch="false" />
+    <None Include="wwwroot\src\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="appsettings.Development.json" />
+    <Content Remove="bundleconfig.json" />
+    <Content Remove="compilerconfig.json" />
+    <None Remove="wwwroot\src\js\close-action.js" />
+    <None Remove="wwwroot\src\js\help-text.js" />
+    <None Remove="wwwroot\src\js\modals.js" />
+    <None Remove="wwwroot\src\less\modals.less" />
+    <None Include="appsettings.Development.json" />
+    <None Include="bundleconfig.json" />
+    <None Include="compilerconfig.json" />
+    <None Include="wwwroot\favicon\safari-pinned-tab.svg" />
+    <None Include="wwwroot\favicon\site.webmanifest" />
+    <None Include="wwwroot\vendors\bootstrap\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\vendors\bootstrap\scss\bootstrap-grid.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\bootstrap-reboot.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\bootstrap-utilities.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\bootstrap.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\forms\_floating-labels.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\forms\_form-check.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\forms\_form-control.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\forms\_form-range.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\forms\_form-select.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\forms\_form-text.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\forms\_input-group.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\forms\_labels.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\forms\_validation.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\helpers\_clearfix.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\helpers\_colored-links.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\helpers\_position.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\helpers\_ratio.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\helpers\_stacks.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\helpers\_stretched-link.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\helpers\_text-truncation.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\helpers\_visually-hidden.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\helpers\_vr.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_alert.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_backdrop.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_border-radius.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_box-shadow.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_breakpoints.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_buttons.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_caret.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_clearfix.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_color-scheme.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_container.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_deprecate.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_forms.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_gradients.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_grid.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_image.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_list-group.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_lists.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_pagination.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_reset-text.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_resize.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_table-variants.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_text-truncate.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_transition.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_utilities.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\mixins\_visually-hidden.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\utilities\_api.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\vendor\_rfs.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_accordion.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_alert.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_badge.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_breadcrumb.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_button-group.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_buttons.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_card.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_carousel.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_close.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_containers.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_dropdown.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_forms.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_functions.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_grid.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_helpers.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_images.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_list-group.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_mixins.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_modal.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_nav.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_navbar.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_offcanvas.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_pagination.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_placeholders.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_popover.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_progress.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_reboot.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_root.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_spinners.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_tables.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_toasts.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_tooltip.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_transitions.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_type.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_utilities.scss" />
+    <None Include="wwwroot\vendors\bootstrap\scss\_variables.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="MailKit" Version="3.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
+    <PackageReference Include="NonFactors.Grid.Core.Mvc6" Version="7.0.2" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.20" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BstHelpers\BstHelpers.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Shared\Scripts\" />
+  </ItemGroup>
+</Project>

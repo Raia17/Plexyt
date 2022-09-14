@@ -1,0 +1,135 @@
+﻿@import "_variables.less";
+
+
+.table .activable.activated {
+    color: @green;
+
+    i:before, i::before {
+        color: @green;
+    }
+}
+
+.table .activable.deactivated {
+    color: @red;
+
+    i:before, i::before {
+        color: @red;
+    }
+}
+
+.mvc-grid table > thead > tr > th {
+    position: relative;
+    white-space: nowrap;
+    font-weight: 400;
+    background: rgba(0,0,0, .03);
+}
+
+.mvc-grid {
+    table {
+
+        &.table-small {
+            font-size: 0.9rem;
+        }
+
+        &.expanded {
+            .w-100 {
+                display: none;
+            }
+        }
+
+        margin-bottom: 0;
+
+        td {
+            img {
+                max-width: 40px;
+                max-height: 30px;
+            }
+
+            i {
+                vertical-align: middle;
+            }
+
+            vertical-align: middle;
+        }
+
+        > :not(:first-child) {
+            border-top: none;
+        }
+    }
+
+    th {
+        padding: .5rem !important;
+    }
+
+    &.mvc-grid-row-mode table,
+    &.mvc-grid-row-mode tr:nth-child(1) td {
+        border-top: none !important;
+    }
+
+
+
+    .sortable {
+        cursor: pointer;
+    }
+
+    .mvc-grid-sort {
+        background: none;
+        font-size: inherit;
+        color: inherit;
+        opacity: 0.5;
+        font-weight: bold;
+        cursor: pointer;
+        width: auto;
+        border: none;
+        height: 100%;
+        font-weight: normal;
+        padding-right: 0;
+        text-align: inherit;
+
+        .sortable-up,
+        .sortable-down {
+            display: none;
+        }
+    }
+
+    .desc .mvc-grid-sort,
+    .asc .mvc-grid-sort {
+        opacity: 1;
+    }
+
+    .desc .sortable-none,
+    .asc .sortable-none {
+        display: none;
+    }
+
+    .desc .sortable-up {
+        display: inline-block;
+    }
+
+    .asc .sortable-down {
+        display: inline-block;
+    }
+
+    .mvc-grid-empty-row {
+        background: none !important;
+    }
+
+    .table-td-content {
+        min-width: max-content;
+        max-width: 300px;
+    }
+
+    .text-end {
+        .table-td-content {
+            margin-left: auto;
+        }
+    }
+}
+
+
+
+
+table.table.middle th,
+table.table.middle td {
+    vertical-align: middle;
+}

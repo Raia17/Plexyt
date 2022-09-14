@@ -1,0 +1,267 @@
+﻿@import "_variables.less";
+
+::selection {
+    background: @primary;
+    color: #FFFFFF;
+}
+
+::-moz-selection {
+    background: @primary;
+    color: #FFFFFF;
+}
+
+html {
+    min-height: 100vh;
+    height: auto;
+}
+
+body {
+    background: @bodyBackground;
+    position: relative;
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    color: @gray-900;
+}
+
+
+header {
+    left: 0;
+    top: 0;
+    padding-left: @sidebarWidth + @grid-gutter-width * 0.5;
+    height: @headerHeight;
+    z-index: 50;
+    width: 100%;
+
+    .header-buttons {
+        position: absolute;
+        top: @grid-gutter-width * 0.5;
+        right: @grid-gutter-width * 0.5;
+        line-height: 1.5rem;
+        z-index: 51;
+
+        .username {
+            display: inline-block;
+            line-height: inherit;
+        }
+
+        a {
+            font-size: 1.5rem;
+            display: inline-block;
+            line-height: inherit;
+        }
+    }
+}
+
+
+main {
+    padding-bottom: @grid-gutter-width;
+
+    @media(max-width:992px) {
+        margin-top: @headerHeight;
+    }
+}
+
+aside {
+    transition: all @sidebarAnimationTime;
+    -moz-transition: all @sidebarAnimationTime;
+    -webkit-transition: all @sidebarAnimationTime;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: @sidebarWidth;
+    background: @sidebarBackground;
+    z-index: 20;
+    padding: 0 17px 0 0;
+    overflow: hidden;
+    transform: translateX(0);
+
+
+    
+    .logo-container {
+        height: @headerHeight;
+        padding: @grid-gutter-width * 0.5 @grid-gutter-width * 0.5;
+
+        > div {
+            position: relative;
+            width: 100%;
+            height: 100%;
+
+            > a {
+
+                > img {
+                    object-fit: contain;
+                    object-position: left center;
+                    -o-object-fit: contain;
+                    -o-object-position: left center;
+                    max-height: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+        @media(max-width:350px) {
+            width: 100px;
+        }
+    }
+
+    .sidebar-toggle-container {
+        height: @headerHeight;
+
+        button {
+            padding: 0;
+            margin: 0;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: @primary;
+            height: @headerHeight;
+        }
+    }
+
+
+    .aside-menu {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: @grid-gutter-width * 0.5 0 @grid-gutter-width 0;
+
+
+        .menu-item {
+
+
+            > button:hover,
+            > a:hover {
+                color: @primary !important;
+            }
+
+            > button:not(.collapsed),
+            > button.selected,
+            > a:not(.collapsed),
+            > a.selected {
+                font-weight: 700;
+                color: @primary !important;
+            }
+
+            .collapse {
+                position: relative;
+
+                .sidebar-border {
+                    position: absolute;
+                    top: 5px;
+                    bottom: 5px;
+                    background: @primary;
+                    width: 3px;
+                    left: @grid-gutter-width * 0.5;
+                }
+
+                a:hover {
+                    color: @primary !important;
+                }
+
+                a.selected {
+                    color: @primary !important;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    @media(max-width:450px) {
+        width: 100%;
+        padding-right: 0 !important;
+
+        .aside-menu {
+            right: 0 !important;
+        }
+    }
+}
+
+article {
+    padding-left: @sidebarWidth;
+    padding-bottom: @grid-gutter-width * 1.5;
+    transition: all @sidebarAnimationTime;
+    -moz-transition: all @sidebarAnimationTime;
+    -webkit-transition: all @sidebarAnimationTime;
+
+    .container-fluid {
+    }
+}
+
+footer {
+    position: absolute;
+    bottom: @grid-gutter-width * 0.25;
+    right: @grid-gutter-width * 0.5;
+
+    a {
+        text-decoration: underline;
+    }
+}
+
+
+.card {
+    .card-header {
+        background: #FFFFFF;
+    }
+}
+
+body.sidebar-hide {
+
+    aside {
+        transform: translateX(-100%);
+    }
+
+    article {
+        padding-left: 0;
+    }
+}
+
+@media(max-width:992px) {
+    aside {
+        transform: translateX(-100%);
+    }
+
+    article {
+        padding-left: 0;
+    }
+
+    body.sidebar-hide {
+        aside {
+            transform: translateX(0);
+        }
+    }
+}
+
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 10000;
+    padding: 40vh 15px 0;
+    text-align: center;
+    color: #FFFFFF;
+    display: none;
+
+    .message {
+        font-size: 2em;
+    }
+
+    .spinner-border {
+        width: 5rem;
+        height: 5rem;
+        border-width: 0.4em;
+    }
+}
+
+a {
+    text-decoration: none;
+}

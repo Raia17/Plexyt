@@ -1,0 +1,10 @@
+﻿@{
+    Layout = null;
+    
+    var block = ((bool?)ViewData["Block"] ?? false);
+}
+
+
+<div class="form-submit">
+    <button class="btn btn-primary d-block @(block ? "w-100" : "d-md-inline-block")" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Pesquisar</button>
+</div>
