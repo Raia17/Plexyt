@@ -1,0 +1,24 @@
+﻿@using Plataforma.Extensions
+@using Plataforma.Models.Identity
+@using Plataforma.Controllers.Admin
+@using Plataforma.Helpers
+@model List<Plataforma.Models.Work.Material>
+
+<div>
+    <a asp-action="Create" asp-controller="Materials" class="btn btn-primary mb-3"><i class="fa-regular fa-file"></i> Novo registo</a>
+</div>
+
+
+@(Html
+    .Grid(Model)
+    .Build(columns => {
+        columns.Add(m => m.Id).Titled("Id");
+        columns.Add(m => m.Name).Titled("Designação");
+        columns.Add(m => m.Brand).Titled("Marca");
+        columns.Add(m => m.Ref).Titled("Referência");
+        columns.AddActions(b => b.AddEdit().AddDelete());
+    })
+    .Empty("Sem dados")
+    .Sortable()
+    .Pageable()
+    )

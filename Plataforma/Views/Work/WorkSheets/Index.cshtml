@@ -1,0 +1,37 @@
+﻿@using Plataforma.Extensions
+@using Plataforma.Models.Identity
+@using Plataforma.Controllers.Admin
+@using Plataforma.Helpers
+@model List<Plataforma.Models.Work.WorkSheet>
+
+<div>
+    <a asp-action="Create" asp-controller="WorkSheets" class="btn btn-primary mb-3"><i class="fa-regular fa-file"></i> Novo registo</a>
+</div>
+
+@{
+    var textLenght = 20;
+}
+
+@(Html
+    .Grid(Model)
+    .Build(columns => {
+        columns.Add(m => m.Id).Titled("Id");
+        columns.Add(m => m.Vehicle.LicensePlate).Titled("Veículo");
+        columns.Add(m => m.Employee.Name).Titled("Responsável");
+        columns.Add(m => m.Date).RenderedAs(d => d.Date.ToString("d")).Titled("Data");
+        columns.Add(m => m.Kms).Titled("Kms").Sortable(false);
+        columns.Add(m => m.WorkDone).RenderedAs(m => m.WorkDone.Length > textLenght ? m.WorkDone[..textLenght] + "..." : m.WorkDone).Titled("Serviço Feito").Sortable(false);
+        columns.Add(m => m.WorkTodo).RenderedAs(m => m.WorkTodo.Length > textLenght ? m.WorkTodo[..textLenght] + "..." : m.WorkTodo).Titled("Serviço por Fazer").Sortable(false);
+        columns.Add(m => m.Materials).RenderedAs(r => {
+            var result = "";
+            foreach(var m in r.Materials) {
+                result += $"<span class=\"badge badge-primary bg-primary mx-1\">{m.Name}</span>";
+            }
+            return result;
+        }).Encoded(false).Titled("Materiais").Sortable(false);
+        columns.AddActions(b => b.AddEdit().AddDelete());
+    })
+    .Empty("Sem dados")
+    .Sortable()
+    .Pageable()
+    )

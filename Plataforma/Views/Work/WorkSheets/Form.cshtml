@@ -1,0 +1,217 @@
+@model Plataforma.Dtos.Work.WorkSheetDto
+
+
+<form asp-action="@ViewContext.RouteData.Values["action"]?.ToString()" asp-controller="WorkSheets">
+
+    <div class="validation-error">@ViewData["Error"]</div>
+
+    <div class="card">
+        <div class="card-header">Dados de folha de obra</div>
+        <div class="card-body pb-3">
+
+            <h2>Informação de Folha de Obra</h2>
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label asp-for="VehicleId">Veículo</label>
+                        <select asp-for="VehicleId" asp-items="@((SelectList)ViewBag.Vehicles)" class="form-control">
+                            <option value="" selected>-- Escolha um veículo --</option>
+                        </select>
+                        <span asp-validation-for="VehicleId"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label asp-for="EmployeeId">Funcionário</label>
+                        <select asp-for="EmployeeId" asp-items="@((SelectList)ViewBag.Employees)" class="form-control" >
+                            <option value="" selected>-- Escolha um funcionário --</option>
+                        </select>
+                        <span asp-validation-for="EmployeeId"></span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-2">
+                    <div class="form-group">
+                        <label asp-for="Date">Data</label>
+                        <input type="date" asp-for="Date" class="form-control" />
+                        <span asp-validation-for="Date"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-2">
+                    <div class="form-group">
+                        <label asp-for="Kms">Kms</label>
+                        <input inputmode="numeric" asp-for="Kms" class="form-control" />
+                        <span asp-validation-for="Kms"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label asp-for="WorkDone">Serviço Feito</label>
+                        <textarea asp-for="WorkDone" class="form-control" style="min-height:100px;" ></textarea>
+                        <span asp-validation-for="WorkDone"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label asp-for="WorkTodo">Serviço Por Fazer</label>
+                        <textarea asp-for="WorkTodo" class="form-control" style="min-height:100px;"></textarea>
+                        <span asp-validation-for="WorkTodo"></span>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <h2>Materiais</h2>
+            <div class=" row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label asp-for="MaterialsId">Materiais</label>
+                        <select asp-for="MaterialsId" asp-items="@((SelectList)ViewBag.Materials)" class="form-control select2-element">
+                        </select>
+                        <span asp-validation-for="MaterialsId"></span>
+                    </div>
+                </div>
+
+
+
+                @* COM QUANTIDADE *@
+
+                @*<div class="row">
+                    <div class="materials-input">
+                        @for(var i = 0; i < Model.WorkSheetMaterials.Count; i++) {
+
+                            <div class="row align-items-center" data-row="@i">
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label asp-for="MaterialsId[i]">Material</label>
+                                        <select asp-for="MaterialsId[i]" asp-items="@((SelectList)ViewBag.Materials)" class="form-control">
+                                            <option value="">-- Escolha um material --</option>
+                                        </select>
+                                        <span asp-validation-for="MaterialsId[i]"></span>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label asp-for="Amounts[i]">Quantidade</label>
+                                        <input asp-for="Amounts[i]" class="form-control"/>
+                                        <span asp-validation-for="Amounts[i]"></span>
+                                    </div>
+                                </div>
+                                <a class="btn btn-danger btn-erase col-1" style="height: min-content" data-row="@i">-</a>
+                            </div>
+
+                        }
+                    </div>
+                    <div class="materiais-btns">
+                        @if (ViewContext.RouteData.Values["action"]?.ToString() == "Create") {
+                            <a class="btn btn-primary btn-create">+</a>
+                        } else {
+                            <a class="btn btn-primary btn-edit">+</a>
+                        }
+                    </div>
+                </div>
+            </div>*@
+        </div>
+    </div>
+    <partial name="Form/_ActionButtons" />
+</form>
+
+
+@*@section Scripts {
+    <script>
+        let count = 0;
+        // /api/XhrMaterials/GetMaterials
+        $(document).ready(async function() {
+            let options = await getOptions()
+
+            $(".materials-input .row").each(function() {
+                count++
+                console.log(count)
+            })
+
+            $(".btn-create").click(function() {
+                
+                const html = `<div class="row" data-row="${count}">
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <label for="MaterialsId">Material</label>
+                                            <select name="MaterialsId" id="MaterialsId" class="form-control">
+                                                <option value="" selected>-- Escolha um material --</option>
+                                                ${options}
+                                            </select>
+                                            <span asp-validation-for="MaterialsId"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group">
+                                                    <label for="Amounts">Quantidade</label>
+                                            <input name="Amounts" id="Amounts" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <a class="btn btn-danger btn-erase col-1" data-row="${count}">-</a>
+                                </div>`;
+
+                $(".materials-input").append(html);
+
+                $('.btn-erase[data-row="'+count+'"]').click(function (e) {
+                    let target = e.currentTarget
+                    let btnAttr = target.getAttribute("data-row")
+                    let rows = document.querySelectorAll(".materials-input .row")
+                    rows.forEach(row => {
+                        if (row.getAttribute("data-row") === btnAttr) row.remove()
+                    })
+                })
+                count++                
+            })
+
+            $(".btn-edit").click(function() {
+                
+                const html = `<div class="row" data-row="${count}">
+                                <div class="col-10">
+                                        <div class="form-group">
+                                            <label for="MaterialsId_${count}_">Material</label>
+                                            <select name="MaterialsId[${count}]" id="MaterialsId_${count}_" class="form-control" data-val="true" data-val-required="The Int32 field is required." aria-describedby="MaterialsId_1_-error">
+                                                <option value="" selected>-- Escolha um material --</option>
+                                                ${options}
+                                            </select>
+                                            <span asp-validation-for="MaterialsId"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group">
+                                            <label for="Amounts_${count}_">Quantidade</label>
+                                            <input name="Amounts[${count}]" id="Amounts_${count}_" class="form-control" />
+                                        </div>
+                                    </div>
+                                            <a class="btn btn-danger btn-erase col-1" data-row="${count}">-</a>
+                                </div>`;
+
+                $(".materials-input").append(html);
+
+                $('.btn-erase[data-row="' + count + '"]').click(function (e) {
+                    let target = e.currentTarget
+                    let btnAttr = target.getAttribute("data-row")
+                    let rows = document.querySelectorAll(".materials-input .row")
+                    rows.forEach(row => {
+                        console.log(row)
+                        if (row.getAttribute("data-row") === btnAttr) row.remove()
+                    })
+                })
+                count++
+            })
+
+        })
+
+        async function getOptions() {
+            const res = await fetch("/api/XhrMaterials/GetMaterials")
+            const data = await res.json()
+
+            let fields = "";
+
+            if (data.lenght === 0) return fields
+            data.forEach(d => {
+                fields += `<option value="${d.id}">${d.text} ${d.brand}</option>`
+            })
+            return fields
+        }
+    </script>
+}*@

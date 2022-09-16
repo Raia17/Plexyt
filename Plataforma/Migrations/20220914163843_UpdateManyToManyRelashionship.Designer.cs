@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Plataforma.Data;
 
@@ -11,9 +12,10 @@ using Plataforma.Data;
 namespace Plataforma.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220914163843_UpdateManyToManyRelashionship")]
+    partial class UpdateManyToManyRelashionship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,21 +24,6 @@ namespace Plataforma.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("MaterialWorkSheet", b =>
-                {
-                    b.Property<int>("MaterialsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkSheetsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MaterialsId", "WorkSheetsId");
-
-                    b.HasIndex("WorkSheetsId");
-
-                    b.ToTable("MaterialWorkSheet");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
                 {
@@ -422,7 +409,7 @@ namespace Plataforma.Migrations
                     b.Property<string>("PostalCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Telephone")
+                    b.Property<int>("Telephone")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -465,7 +452,7 @@ namespace Plataforma.Migrations
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Telephone")
+                    b.Property<int>("Telephone")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -563,19 +550,30 @@ namespace Plataforma.Migrations
                     b.ToTable("WorkSheets");
                 });
 
-            modelBuilder.Entity("MaterialWorkSheet", b =>
+            modelBuilder.Entity("Plataforma.Models.Work.WorkSheetMaterial", b =>
                 {
-                    b.HasOne("Plataforma.Models.Work.Material", null)
-                        .WithMany()
-                        .HasForeignKey("MaterialsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.HasOne("Plataforma.Models.Work.WorkSheet", null)
-                        .WithMany()
-                        .HasForeignKey("WorkSheetsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaterialId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WorkSheetId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MaterialId");
+
+                    b.HasIndex("WorkSheetId");
+
+                    b.ToTable("WorkSheetsMaterials");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -703,6 +701,25 @@ namespace Plataforma.Migrations
                     b.Navigation("Vehicle");
                 });
 
+            modelBuilder.Entity("Plataforma.Models.Work.WorkSheetMaterial", b =>
+                {
+                    b.HasOne("Plataforma.Models.Work.Material", "Material")
+                        .WithMany("WorkSheetsMaterials")
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Plataforma.Models.Work.WorkSheet", "WorkSheet")
+                        .WithMany("WorkSheetsMaterials")
+                        .HasForeignKey("WorkSheetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Material");
+
+                    b.Navigation("WorkSheet");
+                });
+
             modelBuilder.Entity("Plataforma.Models.Identity.User", b =>
                 {
                     b.Navigation("Claims");
@@ -711,6 +728,16 @@ namespace Plataforma.Migrations
             modelBuilder.Entity("Plataforma.Models.Media.FileGroup", b =>
                 {
                     b.Navigation("Files");
+                });
+
+            modelBuilder.Entity("Plataforma.Models.Work.Material", b =>
+                {
+                    b.Navigation("WorkSheetsMaterials");
+                });
+
+            modelBuilder.Entity("Plataforma.Models.Work.WorkSheet", b =>
+                {
+                    b.Navigation("WorkSheetsMaterials");
                 });
 #pragma warning restore 612, 618
         }

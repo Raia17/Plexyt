@@ -1,16 +1,15 @@
 ﻿using System;
 
-namespace Plataforma.Models.Abstract
+namespace Plataforma.Dtos.Abstract
 {
-    public abstract class Person
+    public class PersonDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
-        public int Nif { get; set; }
-        public DateTime Birthday { get; set; }
+        public int? Nif { get; set; }
+        public DateTime Birthday { get; set; } = DateTime.Now;
         public string Email { get; set; }
         public int? Telephone { get; set; }
-        public int Mobilephone { get; set; }
+        public int? Mobilephone { get; set; }
         public string Adress { get; set; }
         public string City { get; set; }
         public string PostalCode { get; set; }

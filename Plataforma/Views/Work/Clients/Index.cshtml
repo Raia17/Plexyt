@@ -1,0 +1,34 @@
+@using Plataforma.Extensions
+@using Plataforma.Models.Identity
+@using Plataforma.Controllers.Admin
+@using Plataforma.Helpers
+@model List<Plataforma.Models.Work.Client>
+
+<div>
+    <a asp-action="Create" asp-controller="Clients" class="btn btn-primary mb-3"><i class="fa-regular fa-file"></i> Novo registo</a>
+</div>
+
+@{
+    var textLenght = 15;
+}
+
+@(Html
+    .Grid(Model)
+    .Build(columns => {
+        columns.Add(m => m.Id).Titled("Id");
+        columns.Add(m => m.Name).Titled("Nome");
+        columns.Add(m => m.Entity).Titled("Entidade");
+        columns.Add(m => m.Nif).Titled("NIF").Sortable(false);
+        columns.Add(m => m.Birthday).RenderedAs(d => d.Birthday.ToString("d")).Titled("Nascimento").Sortable(false);
+        columns.Add(m => m.Email).Titled("E-mail").Sortable(false);
+        columns.Add(m => m.Telephone).Titled("Telefone").Sortable(false).Sortable(false);
+        columns.Add(m => m.Mobilephone).Titled("Telemóvel").Sortable(false).Sortable(false);
+        columns.Add(m => m.Adress).RenderedAs(m => m.Adress.Length > textLenght ? m.Adress[..textLenght] + "..." : m.Adress).Titled("Morada").Sortable(false);
+        columns.Add(m => m.City).Titled("Cidade").Sortable(false);
+        columns.Add(m => m.PostalCode).Titled("Código Postal").Sortable(false);
+        columns.AddActions(b => b.AddEdit().AddDelete());
+    })
+    .Empty("Sem dados")
+    .Sortable()
+    .Pageable()
+    )

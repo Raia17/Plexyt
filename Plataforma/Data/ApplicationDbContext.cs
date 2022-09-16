@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using BstHelpers;
 using Plataforma.Data.Interceptors;
 using User = Plataforma.Models.Identity.User;
+using Plataforma.Models.Work;
 
 namespace Plataforma.Data;
 
@@ -44,6 +45,14 @@ public sealed class ApplicationDbContext : IdentityDbContext<User, IdentityRole<
 
     #region Identity
     public override DbSet<User> Users { get; set; }
+    #endregion
+
+    #region Work
+    public DbSet<Client> Clients { get; set; }
+    public DbSet<Employee> Employees { get; set; }
+    public DbSet<Vehicle> Vehicles { get; set; }
+    public DbSet<Material> Materials { get; set; }
+    public DbSet<WorkSheet> WorkSheets { get; set; }
     #endregion
 
 
@@ -104,7 +113,9 @@ public sealed class ApplicationDbContext : IdentityDbContext<User, IdentityRole<
             });
         #endregion
 
+        #region SeedData
         SeedData(builder);
+        #endregion
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {

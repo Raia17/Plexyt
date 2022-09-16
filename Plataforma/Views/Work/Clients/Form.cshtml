@@ -1,0 +1,102 @@
+@model Plataforma.Dtos.Work.ClientDto
+
+
+<form asp-action="@ViewContext.RouteData.Values["action"]?.ToString()" asp-controller="Clients">
+
+    <div class="validation-error">@ViewData["Error"]</div>
+
+    <div class="card">
+        <div class="card-header">Dados de cliente</div>
+        <div class="card-body pb-3">
+
+            <h2>Informação Pessoal</h2>
+            <div class="row">
+                <div class="col-12 col-md-8">
+                    <div class="form-group">
+                        <label asp-for="Name">Nome</label>
+                        <input asp-for="Name" class="form-control"/>
+                        <span asp-validation-for="Name"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Entity">Entidade</label>
+                        <select asp-for="Entity" class="form-control" >
+                            <option value="" selected>-- Escolha uma entidade --</option>
+                            <option value="Individual">Individual</option>
+                            <option value="Empresarial">Empresarial</option>
+                        </select>
+                        <span asp-validation-for="Entity"></span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Nif">NIF</label>
+                        <input type="number" value="" asp-for="Nif" class="form-control"/>
+                        <span asp-validation-for="Nif"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Birthday">Data de nascimento</label>
+                        <input type="date" asp-for="Birthday" min="1900-1-1" value="" class="form-control" />
+                        <span asp-validation-for="Birthday"></span>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Contactos</h2>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label asp-for="Email">E-mail</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Telephone">Telefone</label>
+                        <input type="number" value="" asp-for="Telephone" class="form-control" />
+                        <span asp-validation-for="Telephone"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Mobilephone">Telemóvel</label>
+                        <input type="number" value="" asp-for="Mobilephone" class="form-control" />
+                        <span asp-validation-for="Mobilephone"></span>
+                    </div>
+                </div>
+            </div>
+
+            <h2 >Morada</h2>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label asp-for="Adress">Morada</label>
+                        <input asp-for="Adress" class="form-control" />
+                        <span asp-validation-for="Adress"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label asp-for="City">Cidade</label>
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PostalCode">Código Postal</label>
+                        <input asp-for="PostalCode" class="form-control" />
+                        <span asp-validation-for="PostalCode"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <partial name="Form/_ActionButtons" />
+</form>

@@ -1,0 +1,40 @@
+@model Plataforma.Dtos.Work.MaterialDto
+
+
+<form asp-action="@ViewContext.RouteData.Values["action"]?.ToString()" asp-controller="Materials">
+
+    <div class="validation-error">@ViewData["Error"]</div>
+
+    <div class="card">
+        <div class="card-header">Dados de material</div>
+        <div class="card-body pb-3">
+
+            <h2>Informação do Material</h2>
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Name">Designação</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Brand">Marca</label>
+                        <input asp-for="Brand" class="form-control" />
+                        <span asp-validation-for="Brand"></span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Ref">Referência</label>
+                        <input asp-for="Ref" class="form-control"/>
+                        <span asp-validation-for="Ref"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <partial name="Form/_ActionButtons" />
+</form>

@@ -20,6 +20,15 @@ public static class ClaimStore {
                 new ApplicationClaim("Settings", "Definições", true,typeof(SettingsController).GetControllerName()),
             }
         ),
+        new ApplicationClaimGroup("Trabalho",
+            new[] {
+                new ApplicationClaim("WorkSheets", "Folhas de Obra", true,typeof(WorkSheetsController).GetControllerName()),
+                new ApplicationClaim("Vehicles", "Veículos", true,typeof(VehiclesController).GetControllerName()),
+                new ApplicationClaim("Employees", "Funcionários", true,typeof(EmployeesController).GetControllerName()),
+                new ApplicationClaim("Clients", "Clientes", true,typeof(ClientsController).GetControllerName()),
+                new ApplicationClaim("Materials", "Materiais", true,typeof(MaterialsController).GetControllerName()),
+            }
+        ),
         new ApplicationClaimGroup("Alterar Password", new[] {new ApplicationClaim("", "", true, typeof(ChangePasswordController).GetControllerName()) }, true),
     };
 

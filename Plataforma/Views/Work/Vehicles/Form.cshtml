@@ -1,0 +1,63 @@
+@model Plataforma.Dtos.Work.VehicleDto
+
+
+<form asp-action="@ViewContext.RouteData.Values["action"]?.ToString()" asp-controller="Vehicles">
+
+    <div class="validation-error">@ViewData["Error"]</div>
+
+    <div class="card">
+        <div class="card-header">Dados de veículo</div>
+        <div class="card-body pb-3">
+
+            <h2>Informação do Veículo</h2>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label asp-for="LicensePlate">Matrícula</label>
+                        <input asp-for="LicensePlate" class="form-control" />
+                        <span asp-validation-for="LicensePlate"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ClientId">Cliente</label>
+                        <select asp-for="ClientId" asp-items="@((SelectList)ViewBag.Clients)" class="form-control" >
+                            <option value="" selected>-- Escolha um cliente --</option>
+                        </select>
+                        <span asp-validation-for="ClientId"></span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Brand">Marca</label>
+                        <input asp-for="Brand" class="form-control"/>
+                        <span asp-validation-for="Brand"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Type">Modelo</label>
+                        <input asp-for="Type" class="form-control" />
+                        <span asp-validation-for="Type"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-2">
+                    <div class="form-group">
+                        <label asp-for="PivotNumber">Nº Eixos</label>
+                        <input asp-for="PivotNumber" class="form-control" />
+                        <span asp-validation-for="PivotNumber"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-5">
+                    <div class="form-group">
+                        <label asp-for="Color">Cor</label>
+                        <input asp-for="Color" class="form-control" />
+                        <span asp-validation-for="Color"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <partial name="Form/_ActionButtons" />
+</form>
