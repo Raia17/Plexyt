@@ -5,12 +5,19 @@ $(document).ready(function () {
     //$("aside").css("right", '-' + scrollbarWith + "px");
 
     //#Sidebar Toggle
-    $(".sidebar-toggle").on("click", function () {
+    $(".sidebar-toggle-container").on("click", function () {
         if ($("aside").css("position") === "relative") {
             $("body").removeClass("sidebar-hide");
             $("#menus").collapse('toggle');
         } else {
+            $("#menuAccordion").toggleClass("close")
             $("body").toggleClass("sidebar-hide");
+            $(".sidebar-toggle").toggleClass('active');
+            $(".logo-container .div-text").toggleClass('active');
+            $(".sidebar-bottom").toggleClass("close");
+            $(".menu-item").each(function (index, value) {
+                $(this).toggleClass("close")
+            })
         }
     });
     //#Sidebar Toggle

@@ -13,12 +13,13 @@
         foreach(var (applicationClaimGroup, applicationClaimGroupIndex) in claimGroups) {
             var selected = selectedClaimGroupName == applicationClaimGroup.Name;
             var index = applicationClaimGroupIndex.ToString();
-            if (User.Claims.Any(cl => applicationClaimGroup.Claims.Any(c => c.Menu && (c.Type == cl.Type || c.CustomType == cl.Type || (string.IsNullOrEmpty(c.Type) && string.IsNullOrEmpty(c.CustomType)))))) {
+            if (User.Claims.Any(cl => applicationClaimGroup.Claims.Any(c => c.Menu && (c.Type == cl.Type || c.CustomType == cl.Type || (string.IsNullOrEmpty(c.Type) && string.IsNullOrEmpty(c.CustomType))))) && !applicationClaimGroup.WhiteSpace) {
                 if (applicationClaimGroup.OnlyMenu && applicationClaimGroup.Claims.Count(c=>c.Menu) == 1) {
                     var claim = applicationClaimGroup.Claims[0];
-                    <div class="menu-item">
+                    <div class="menu-item d-flex align-items-center rounded-pill">
+                        <i class="@(applicationClaimGroup.Claims[0].Icon) mr-2 icon"></i>
                         <a 
-                            class="btn btn-link d-block text-reset text-decoration-none rounded-0 w-100 text-start shadow-none @(selected ? "" : " collapsed")"
+                            class="btn btn-link d-block text-reset text-decoration-none w-100 text-start shadow-none @(selected ? "" : " collapsed")"
                             asp-controller="@claim.ControllerName" asp-action="Index">
                             @applicationClaimGroup.Name
                         </a>
@@ -50,6 +51,18 @@
                                 </a>
                             }
                         </div>
+                    </div>
+                }
+            } else {
+                if(applicationClaimGroup.WhiteSpace) { <hr /> }
+                else {
+                    var claim = applicationClaimGroup.Claims[0];
+                    <div class="menu-item d-flex align-items-center rounded-pill">
+                        <i class="@(applicationClaimGroup.Claims[0].Icon) mr-2 icon"></i>
+                        <a class="btn btn-link d-block text-reset text-decoration-none w-100 text-start shadow-none @(selected ? "" : " collapsed")"
+                            asp-controller="@claim.ControllerName" asp-action="Index">
+                            @applicationClaimGroup.Name
+                        </a>
                     </div>
                 }
             }

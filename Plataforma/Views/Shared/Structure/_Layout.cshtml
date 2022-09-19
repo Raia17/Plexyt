@@ -22,37 +22,35 @@
     
     <main>
         <aside>
-            <div class="aside-menu">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-auto">
+            <div class="aside-menu d-flex flex-column justify-content-between">
+                <div>
+                    <div class="sidebar-top">
+                        <div>
                             <div class="sidebar-toggle-container">
-                                <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+                                <button class="sidebar-toggle h5"><i class="fas fa-arrow-left"></i></button>
                             </div>
                         </div>
-                        <div class="col-auto">
+                        <div class="">
                             <div class="logo-container">
-                                <div><a href="/"><img src="~/images/logo.png" class="logo" alt="@_configurationsService.Title"/></a></div>
+                                <div class="div-logo"><a href="/"><img src="~/images/plexyt-logo-img.svg" class="logo" alt="@_configurationsService.Title" /></a></div>
+                                <div class="div-text"><a href="/"><img src="~/images/plexyt-logo-text.svg" class="text" alt="@_configurationsService.Title" /></a></div>
                             </div>
                         </div>
                     </div>
+                    <partial name="Structure/_Sidebar" />
                 </div>
-                <partial name="Structure/_Sidebar"/>
+                <div class="sidebar-bottom px-3">
+                    <div class="user-info">
+                        <a title="Definições" asp-controller="Settings" asp-action="Index">
+                            <div class="user-img"></div>
+                        </a>
+                        <p class="user-name">@user.Name</p>
+                    </div>
+                        <div class="icon-leave"><a class="p-0 text-decoration-none text-black-50" title="Sair" asp-controller="Auth" asp-action="Logout"><i class="fas fa-right-from-bracket"></i></a></div>
+                </div>
             </div>
         </aside>
         <article>
-            <header>
-                <div class="header-buttons">
-                    <div class="row">
-                        <div class="col-auto d-none d-md-block">
-                            <span class="username">@Humanizer.GetGreeting(), @user.Name</span>
-                        </div>
-                        <div class="col-auto ps-0">
-                            <a class="btn-logout p-0 text-decoration-none" title="Sair" asp-controller="Auth" asp-action="Logout"><i class="fas fa-power-off"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </header>
             <div class="container-fluid">
                 <div class="titles mb-3">
                     <partial name="Structure/_BreadCrumbs"/>
