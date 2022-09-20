@@ -1,2 +1,159 @@
 ﻿@using Plataforma.Services.Components
 @using Plataforma.Data
+@model List<Plataforma.Dtos.Helpers.DashboardCardDto>
+
+@{
+    // Calendar
+    string[] months = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" };
+
+    DateTime date = ViewBag.Date;
+
+    // Present Date
+    var presentDay = DateTime.Now.Day;
+    var presentMonth = DateTime.Now.Month;
+    var presentYear = DateTime.Now.Year;
+
+    // Day counter
+    var d = 1;
+
+    // Previous month
+    var prevDate = date.AddMonths(-1);
+    var prevMonthDay = DateTime.DaysInMonth(prevDate.Year, prevDate.Month) - (int)date.DayOfWeek + 1;
+
+    // Next mounth
+    var nextDate = date.AddMonths(1);
+    var nextMonthDay = 1;
+
+    // Worksheets Dates
+    var worksheets = ViewBag.Worksheets;
+    var worksheetsDays = new List<int>();
+    foreach (var worksheet in worksheets)
+    {
+        worksheetsDays.Add(worksheet.Date.Day);
+    }
+
+
+
+
+    // Dashboard
+    var temp = 0;
+    var totalColumns = 3;
+}
+
+<div class="calendar my-2">
+    <h1 class="h1">Calendário</h1>
+
+    <div class="calendar-controls d-lg-flex align-items-center mb-3">
+        <div class="d-flex">
+            <a asp-action="Index" asp-route-mm="@prevDate.Month" asp-route-yy="@prevDate.Year"><i class="fas fa-arrow-left"></i></a>
+            <h4 class="h4 d-block" style="min-width:170px; text-align: center;">@months[date.Month - 1] @date.Year</h4>
+            <a asp-action="Index" asp-route-mm="@nextDate.Month" asp-route-yy="@nextDate.Year"><i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div>
+            <form method="get" class="d-flex form-controls">
+                <select name="presentMonth" id="presentMonth" class="form-select">
+                    @for(var i = 0; i < months.Length; i++) {
+                        <option value="@(i+1)">@(months[i])</option>
+                    }
+                </select>
+                <input type="number" name="presentYear" id="presentMonth" class="form-control" value="@date.Year" />
+                <button type="submit" class="btn btn-primary"><i class="fas fa-magnifying-glass"></i></button>
+            </form>
+        </div>
+
+    </div>
+    <table class="w-100 table">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th scope="col">Dom</th>
+                <th scope="col">Seg</th>
+                <th scope="col">Ter</th>
+                <th scope="col">Qua</th>
+                <th scope="col">Qui</th>
+                <th scope="col">Sex</th>
+                <th scope="col">Sáb</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < 6; i++)
+            {
+
+                <tr>
+                    @for (var j = 0; j < 7; j++)
+                    {
+
+                        if ((int)date.DayOfWeek > j && i == 0)
+                        {
+                            <td class="day month-before">@prevMonthDay</td>
+                            prevMonthDay++;
+                        }
+                        else if (d > DateTime.DaysInMonth(date.Year, date.Month))
+                        {
+                            <td class="day month-after">@nextMonthDay</td>
+                            nextMonthDay++;
+                        }
+                        else
+                        {
+                            if (d == presentDay && date.Month == presentMonth && date.Year == presentYear)
+                            {
+                                if (worksheetsDays.Contains(d))
+                                {
+                                    <td class="day day-present-work"><a asp-controller="Worksheets" asp-action="Index" asp-route-d="@d" asp-route-m="@date.Month" asp-route-a="@date.Year" class="h-100 text-reset d-flex flex-column align-items-center justify-content-between"><p class="m-0">@d</p><i class="fas fa-file-text align-self-start"></i></a></td>
+                                }
+                                else
+                                {
+                                    <td class="day day-present">@d</td>
+                                }
+                            }
+                            else if (worksheetsDays.Contains(d))
+                            {
+                                <td class="day day-work"><a asp-controller="Worksheets" asp-action="Index" asp-action="Index" asp-route-d="@d" asp-route-m="@date.Month" asp-route-a="@date.Year" class="h-100 text-reset d-flex flex-column align-items-center justify-content-between"><p class="m-0">@d</p><i class="fas fa-file-text align-self-start"></i></a></td>
+                            }
+                            else
+                            {
+                                <td class="day month-present">@d</td>
+                            }
+                            d++;
+                        }
+
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="dashboard my-5">
+    <h1 class="h1">Dashboard</h1>
+    <div class="row card-deck">
+        @for (int i = 0; i < Math.Ceiling(Model.Count / 3d); i++)
+        {
+
+
+            @for (int j = 0; j < totalColumns; j++)
+            {
+                if (!(i + j + temp >= Model.Count))
+                {
+                    <div class="col-12 col-lg-4 col-sm-6 mb-4 flex-grow-1">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="info d-flex justify-content-between">
+                                    <header>
+                                        <h5 class="card-title">@(Model[i + j + temp].Count)</h5>
+                                        <h6 class="card-subtitle">@(Model[i + j + temp].Name)</h6>
+                                    </header>
+                                    <div class="icon h2">
+                                        <i class="@(Model[i+j+temp].Icon)"></i>
+                                    </div>
+                                </div>
+                                <p class="text-black-50">@(Model[i + j + temp].Count) @(Model[i + j + temp].Name) criados até agora.</p>
+                                <a asp-controller="@(Model[i+j+temp].Controller)" asp-action="@(Model[i+j+temp].Action)" class="btn btn-primary mt-4"><i class="fa-regular fa-file"></i> Criar @(Model[i + j + temp].Name)</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            temp += totalColumns - 1;
+        }
+    </div>
+</div>

@@ -4,23 +4,31 @@
 @{
     Layout = "Auth/_Layout";
 }
-
-<form asp-action="Login" asp-controller="Auth" asp-route-redirect="@ViewData["redirect"]">
-    <div class="form-group">
-        <div class="input-group">
-            <span class="input-group-text cursor-pointer"><i class="fa-solid fa-user"></i></span>
-            <input asp-for="Email" type="email" class="form-control" placeholder="E-mail" autofocus/>
-        </div>
+<div class="d-flex flex-column">
+    <div class="text-center">
+        <h2>Bem-vindo ao <span class="text-primary h2 font-weight-bold">PLEXYT</span></h2>
+        <p class="text-black-50">Introduza as suas credencias</p>
     </div>
-    <div class="form-group">
-        <div class="input-group">
-            <span class="input-group-text cursor-pointer"><i class="fa-solid fa-lock"></i></span>
-            <input type="password" asp-for="Password" class="form-control" placeholder="Password"/>
-        </div>
-    </div>
-    <button class="btn btn-primary d-block w-100" type="submit">Entrar</button>
-</form>
+    <form asp-action="Login" asp-controller="Auth" asp-route-redirect="@ViewData["redirect"]">
+    
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-text cursor-pointer bg-primary text-white"><i class="fa-solid fa-user"></i></span>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="E-mail" autofocus />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-text cursor-pointer bg-primary text-white"><i class="fa-solid fa-lock"></i></span>
+                    <input type="password" asp-for="Password" class="form-control" placeholder="Password" />
+                </div>
+            </div>
+    
+        <button class="btn btn-primary d-block w-100" type="submit">Entrar</button>
+    </form>
 
-<div class="text-center">
-    <a class="btn btn-link px-0 mt-3" asp-action="ForgotPassword">Esqueci a minha password</a>
+
+    <div class="text-center">
+        <a class="btn btn-link px-0 mt-3" asp-action="ForgotPassword">Esqueci a minha password</a>
+    </div>
 </div>

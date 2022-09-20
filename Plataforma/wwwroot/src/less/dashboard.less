@@ -1,0 +1,62 @@
+﻿@import "_variables.less";
+
+.calendar {
+    .table {
+        table-layout: fixed;
+        text-align: center;
+        border-collapse: separate;
+        border-spacing: 1px;
+
+        .day {
+            min-height: 60px;
+            height: 60px;
+
+            &.month-before {
+                background-color: @gray-400;
+            }
+
+            &.month-after {
+                background-color: @gray-400;
+            }
+
+            &.month-present {
+                background-color: white;
+            }
+
+            &.day-present {
+                background-color: @gray-200;
+            }
+
+            &.day-work {
+                background-color: @warning;
+            }
+
+            &.day-present-work {
+                color: white;
+                background-color: @green;
+            }
+        }
+    }
+
+    .calendar-controls {
+        gap: 2rem;
+
+        a {
+            line-height: 2;
+            cursor: pointer;
+        }
+
+        .form-controls {
+            gap: .25rem;
+
+            select {
+                max-width: 150px;
+                width: 150px;
+            }
+
+            input {
+                max-width: 4rem;
+            }
+        }
+    }
+}
